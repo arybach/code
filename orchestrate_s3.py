@@ -132,8 +132,8 @@ def train_best_model(
 
 @flow
 def main_flow_s3(
-    train_path: str = "./data/green_tripdata_2023-01.parquet",
-    val_path: str = "./data/green_tripdata_2023-02.parquet",
+    train_path: str = "./code/data/green_tripdata_2023-01.parquet",
+    val_path: str = "./code/data/green_tripdata_2023-02.parquet",
 ) -> None:
     """The main training pipeline"""
 
@@ -144,7 +144,7 @@ def main_flow_s3(
 
     # Load
     s3_bucket = S3Bucket.load("mlops-prefect")
-    s3_bucket.download_folder_to_path(from_folder="data",to_folder="data")
+    s3_bucket.download_folder_to_path(from_folder="data",to_folder="code/data")
 
     df_train = read_data(train_path)
     df_val = read_data(val_path)

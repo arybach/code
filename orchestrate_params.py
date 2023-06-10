@@ -1,4 +1,3 @@
-import os, urllib
 import pathlib
 import pickle
 import pandas as pd
@@ -111,22 +110,12 @@ def train_best_model(
 
 @flow
 def main_flow_params(
-    train_url: str,
-    val_url: str
+    train_path: str,
+    val_path: str
 ) -> None:
     """The main training pipeline"""
-
-    directory = "./data/"  # Replace with the desired destination directory
-    train_filename = train_url.split("/")[-1]  # Extract the filename from the URL
-    train_destination = os.path.join(directory, train_filename)  # Combine the directory and filename
-
-    val_filename = val_url.split("/")[-1]  # Extract the filename from the URL
-    val_destination = os.path.join(directory, val_filename)  # Combine the directory and filename
-
-    # wget "https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2023-01.parquet" -O ./data/green_tripdata_2023-01.parquet
-    # wget "https://d37ci6vzurychx.cloudfront.net/trip-data/green_tripdata_2023-02.parquet" -O ./data/green_tripdata_2023-02.parquet
-    urllib.request.urlretrieve(train_url, train_destination)
-    urllib.request.urlretrieve(val_url, val_destination)
+    # ./code/data/green_tripdata_2023-01.parquet
+    # ./code/data/green_tripdata_2023-02.parquet
     
     # MLflow settings
     # mlflow.set_tracking_uri("sqlite:////mlflow/mlflow.db")
