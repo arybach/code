@@ -114,8 +114,8 @@ def main_flow_params(
     val_path: str
 ) -> None:
     """The main training pipeline"""
-    # ./code/data/green_tripdata_2023-01.parquet
-    # ./code/data/green_tripdata_2023-02.parquet
+    # ./data/green_tripdata_2023-01.parquet
+    # ./data/green_tripdata_2023-02.parquet
     
     # MLflow settings
     # mlflow.set_tracking_uri("sqlite:////mlflow/mlflow.db")

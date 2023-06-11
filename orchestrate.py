@@ -10,10 +10,13 @@ import mlflow
 import xgboost as xgb
 from prefect import flow, task
 
+
 @task(retries=3, retry_delay_seconds=2)
 def read_data(filename: str) -> pd.DataFrame:
     """Read data into DataFrame"""
-    df = pd.read_parquet(filename)
+    
+    fs = LocalFileSystem(basepath=filename)
+    df = pd.read_parquet(fs)
 
     df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
     df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
@@ -110,8 +113,8 @@ def train_best_model(
 
 @flow
 def main_flow_local(
-    train_path: str = "./code/data/green_tripdata_2023-01.parquet",
-    val_path: str = "./code/data/green_tripdata_2023-02.parquet",
+    train_path: str = "./data/green_tripdata_2023-01.parquet",
+    val_path: str = "./data/green_tripdata_2023-02.parquet",
 ) -> None:
     """The main training pipeline"""
 
