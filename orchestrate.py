@@ -15,8 +15,7 @@ from prefect import flow, task
 def read_data(filename: str) -> pd.DataFrame:
     """Read data into DataFrame"""
     
-    fs = LocalFileSystem(basepath=filename)
-    df = pd.read_parquet(fs)
+    df = pd.read_parquet(filename)
 
     df.lpep_dropoff_datetime = pd.to_datetime(df.lpep_dropoff_datetime)
     df.lpep_pickup_datetime = pd.to_datetime(df.lpep_pickup_datetime)
@@ -113,8 +112,8 @@ def train_best_model(
 
 @flow
 def main_flow_local(
-    train_path: str = "./data/green_tripdata_2023-01.parquet",
-    val_path: str = "./data/green_tripdata_2023-02.parquet",
+    train_path: str = "./code/data/green_tripdata_2023-01.parquet",
+    val_path: str = "./code/data/green_tripdata_2023-02.parquet",
 ) -> None:
     """The main training pipeline"""
 
